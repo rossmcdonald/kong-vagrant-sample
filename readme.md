@@ -18,7 +18,10 @@ This will install, configure, and start the base Kong EE installation. Once star
 ```sh
 # make sure `konnect-license.json` file is present!
 
-./bootstrap.sh
+./configure_kong.sh
+
+# optionally, to enable soap transformer plugin
+./enable_soap_plugin.sh
 ```
 
 Once done, there will be 3 workspaces, 2 users, 2 services, and 2 routes all pre-configured. You can then access Kong via:
@@ -27,14 +30,6 @@ Once done, there will be 3 workspaces, 2 users, 2 services, and 2 routes all pre
 - Admin API - http://localhost:7001
 - Manager - http://localhost:7002
 - Dev Portal - http://localhost:7003
-
-The routes are:
-
-```sh
-curl -v http://localhost:7000/routeX
-
-curl -v http://localhost:7000/routeY
-```
 
 ## Troubleshooting
 
