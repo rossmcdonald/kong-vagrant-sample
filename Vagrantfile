@@ -43,6 +43,7 @@ Vagrant.configure("2") do |config|
     sed -i 's/#portal = off/portal = on/' /etc/kong/kong.conf
     sed -i 's/#portal_auth =.*/portal_auth = basic-auth/' /etc/kong/kong.conf
     sed -i 's/#portal_session_conf = .*/portal_session_conf = { "cookie_name":"portal_session","secret":"<CHANGE_THIS>","storage":"kong"}/' /etc/kong/kong.conf
+    sed -i 's/#portal_gui_host = .*/portal_gui_host = 127.0.0.1:7003/' /etc/kong/kong.conf
 
     # uncomment the following lines to enable RBAC
     #sed -i 's/#enforce_rbac = off/enforce_rbac = on/' /etc/kong/kong.conf
