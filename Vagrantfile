@@ -16,9 +16,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     set -x
     systemctl stop firewalld
+    systemctl disable firewalld
     install -D -m644 -C /vagrant/kong.repo /etc/yum.repos.d/kong.repo
     yum update -y
-    yum install unzip wget expat-devel kong-enterprise-edition -y
+    yum install unzip wget expat-devel jq kong-enterprise-edition -y
 
     yum install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm -y
     yum install postgresql96 postgresql96-server -y
@@ -51,6 +52,10 @@ Vagrant.configure("2") do |config|
     #sed -i 's/#admin_gui_auth = .*/admin_gui_auth = basic-auth/' /etc/kong/kong.conf
 
     KONG_PASSWORD=password /usr/local/bin/kong migrations bootstrap -c /etc/kong/kong.conf
-    /usr/local/bin/kong start -c /etc/kong/kong.conf
+
+    # to start kong manually, otherwise you can use systemd for managing the service (recommended)
+    # /usr/local/bin/kong start -c /etc/kong/kong.conf
+    systemctl start kong-enterprise-edition
+    systemctl enable kong-enterprise-edition
   SHELL
 end
