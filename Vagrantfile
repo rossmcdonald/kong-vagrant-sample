@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8001, host: 7001 # admin api
   config.vm.network "forwarded_port", guest: 8002, host: 7002 # manager
   config.vm.network "forwarded_port", guest: 8003, host: 7003 # dev portal
+  config.vm.network "forwarded_port", guest: 8004, host: 7004 # dev portal api
 
   config.vm.synced_folder ".", "/vagrant"
 
@@ -45,6 +46,7 @@ Vagrant.configure("2") do |config|
     sed -i 's/#portal_auth =.*/portal_auth = basic-auth/' /etc/kong/kong.conf
     sed -i 's/#portal_session_conf = .*/portal_session_conf = { "cookie_name":"portal_session","secret":"<CHANGE_THIS>","storage":"kong"}/' /etc/kong/kong.conf
     sed -i 's/#portal_gui_host = .*/portal_gui_host = 127.0.0.1:7003/' /etc/kong/kong.conf
+    sed -i 's/#portal_api_url = .*/portal_api_url = http:\\/\\/127.0.0.1:7004/' /etc/kong/kong.conf
 
     # uncomment the following lines to enable RBAC
     #sed -i 's/#enforce_rbac = off/enforce_rbac = on/' /etc/kong/kong.conf
